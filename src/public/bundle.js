@@ -42810,7 +42810,13 @@
 	
 	var _CrewList2 = _interopRequireDefault(_CrewList);
 	
+	var _AddCrewForm = __webpack_require__(264);
+	
+	var _AddCrewForm2 = _interopRequireDefault(_AddCrewForm);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
@@ -42827,10 +42833,14 @@
 	    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 	
 	    _this.state = {
-	      spacecraft: null
+	      spacecraft: null,
+	      name: "",
+	      url: "",
+	      spacecrafts: ["Galactica", "Zephir"]
 	    };
 	
 	    _this.selectSpacecraft = _this.selectSpacecraft.bind(_this);
+	    _this.updateForm = _this.updateForm.bind(_this);
 	    return _this;
 	  }
 	
@@ -42842,6 +42852,12 @@
 	      });
 	    }
 	  }, {
+	    key: 'updateForm',
+	    value: function updateForm(field, update) {
+	      console.log(field, update);
+	      this.setState(_defineProperty({}, field, update));
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
@@ -42849,35 +42865,40 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
+	        _react2.default.createElement(_AddCrewForm2.default, null),
 	        _react2.default.createElement(
-	          'select',
-	          { value: this.state.value, onChange: function onChange(evt) {
-	              return _this2.selectSpacecraft(evt.target.value);
-	            } },
+	          'div',
+	          { className: 'crew-list' },
 	          _react2.default.createElement(
-	            'option',
-	            { value: 'All' },
-	            'All'
+	            'select',
+	            { value: this.state.value, onChange: function onChange(evt) {
+	                return _this2.selectSpacecraft(evt.target.value);
+	              } },
+	            _react2.default.createElement(
+	              'option',
+	              { value: 'All' },
+	              'All'
+	            ),
+	            _react2.default.createElement(
+	              'option',
+	              { value: 'galactica' },
+	              'Galactica'
+	            ),
+	            _react2.default.createElement(
+	              'option',
+	              { value: 'zephir' },
+	              'Zephir'
+	            ),
+	            _react2.default.createElement(
+	              'option',
+	              { value: 'colonialOne' },
+	              'Colonial One'
+	            )
 	          ),
-	          _react2.default.createElement(
-	            'option',
-	            { value: 'galactica' },
-	            'Galactica'
-	          ),
-	          _react2.default.createElement(
-	            'option',
-	            { value: 'zephir' },
-	            'Zephir'
-	          ),
-	          _react2.default.createElement(
-	            'option',
-	            { value: 'colonialOne' },
-	            'Colonial One'
-	          )
-	        ),
-	        _react2.default.createElement(_CrewList2.default, {
-	          spacecraft: this.state.spacecraft
-	        })
+	          _react2.default.createElement(_CrewList2.default, {
+	            spacecraft: this.state.spacecraft
+	          })
+	        )
 	      );
 	    }
 	  }]);
@@ -42920,11 +42941,12 @@
 	var CrewList = function CrewList(_ref) {
 	  var _ref$data = _ref.data,
 	      fleet = _ref$data.fleet,
-	      loading = _ref$data.loading;
+	      loading = _ref$data.loading,
+	      refresh = _ref$data.refresh;
 	
 	  var crewList = fleet ? fleet.map(function (crew) {
 	    return _react2.default.createElement(_Crew2.default, {
-	      key: crew.name,
+	      key: crew.id,
 	      name: crew.name,
 	      url: crew.url,
 	      spacecrafts: crew.spacecrafts
@@ -45862,6 +45884,138 @@
 	};
 	
 	exports.default = Crew;
+
+/***/ },
+/* 264 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _templateObject = _taggedTemplateLiteral(['\n  mutation addCrew ($name: String!, $url: String!) {\n    createCrew (\n      name: $name,\n      url: $url,\n    \tspacecrafts: [galactica]) {\n      id\n      name\n      url\n      spacecrafts\n    }\n  }\n'], ['\n  mutation addCrew ($name: String!, $url: String!) {\n    createCrew (\n      name: $name,\n      url: $url,\n    \tspacecrafts: [galactica]) {\n      id\n      name\n      url\n      spacecrafts\n    }\n  }\n']);
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactApollo = __webpack_require__(252);
+	
+	var _graphqlTag = __webpack_require__(261);
+	
+	var _graphqlTag2 = _interopRequireDefault(_graphqlTag);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+	
+	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var AddCrewForm = function (_Component) {
+	  _inherits(AddCrewForm, _Component);
+	
+	  function AddCrewForm(props) {
+	    _classCallCheck(this, AddCrewForm);
+	
+	    var _this = _possibleConstructorReturn(this, (AddCrewForm.__proto__ || Object.getPrototypeOf(AddCrewForm)).call(this, props));
+	
+	    _this.state = {
+	      name: "",
+	      url: "",
+	      spacecrafts: ["Galactica", "Zephir"]
+	    };
+	
+	    _this.updateForm = _this.updateForm.bind(_this);
+	    _this.submitForm = _this.submitForm.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(AddCrewForm, [{
+	    key: 'updateForm',
+	    value: function updateForm(field, update) {
+	      this.setState(_defineProperty({}, field, update));
+	    }
+	  }, {
+	    key: 'submitForm',
+	    value: function submitForm() {
+	      this.props.submit(this.state.name, this.state.url);
+	      this.setState({
+	        name: "",
+	        url: ""
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+	
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'add-crew' },
+	        _react2.default.createElement(
+	          'label',
+	          null,
+	          'Name:',
+	          _react2.default.createElement('input', { type: 'text', value: this.state.name, name: 'name', onChange: function onChange(evt) {
+	              return _this2.updateForm(evt.target.name, evt.target.value);
+	            } })
+	        ),
+	        _react2.default.createElement(
+	          'label',
+	          null,
+	          'URL:',
+	          _react2.default.createElement('input', { type: 'text', value: this.state.url, name: 'url', onChange: function onChange(evt) {
+	              return _this2.updateForm(evt.target.name, evt.target.value);
+	            } })
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { onClick: this.submitForm },
+	          'Add Crew'
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return AddCrewForm;
+	}(_react.Component);
+	
+	var AddCrew = (0, _graphqlTag2.default)(_templateObject);
+	
+	exports.default = (0, _reactApollo.graphql)(AddCrew, {
+	  props: function props(_ref) {
+	    var mutate = _ref.mutate;
+	    return {
+	      submit: function submit(name, url) {
+	        return mutate({
+	          variables: { name: name, url: url },
+	          updateQueries: {
+	            CrewListQuery: function CrewListQuery(prev, _ref2) {
+	              var mutationResult = _ref2.mutationResult;
+	
+	              var newCrew = mutationResult.data.createCrew;
+	              return {
+	                fleet: [].concat(_toConsumableArray(prev.fleet), [newCrew])
+	              };
+	            }
+	          }
+	        });
+	      }
+	    };
+	  }
+	})(AddCrewForm);
 
 /***/ }
 /******/ ]);

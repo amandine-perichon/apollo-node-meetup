@@ -44,8 +44,7 @@ const Mutation = new GraphQLObjectType({
         spacecrafts: {type: new GraphQLNonNull(new GraphQLList(Spacecraft))}
       },
       resolve: function(source, args) {
-        let newCrew = Object.assign({}, args);
-        db.addCrew(args)
+        let newCrew = db.addCrew(args)
         return newCrew
       }
     }

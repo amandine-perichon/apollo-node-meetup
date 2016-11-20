@@ -3,9 +3,9 @@ import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 import Crew from './Crew'
 
-const CrewList = ({data: {fleet, loading}}) => {
+const CrewList = ({data: {fleet, loading, refresh}}) => {
   const crewList = fleet ? fleet.map(crew => <Crew
-                                              key={crew.name}
+                                              key={crew.id}
                                               name={crew.name}
                                               url={crew.url}
                                               spacecrafts={crew.spacecrafts}

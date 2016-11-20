@@ -13,6 +13,7 @@ const addCrew = data => {
   const fleet = readFleet()
   const newCrew = Object.assign({id: fleet.length+1}, data)
   fs.writeFileSync(path.join(__dirname, 'fleet.js'), JSON.stringify([...fleet, newCrew], null, 4))
+  return newCrew
 }
 
 
