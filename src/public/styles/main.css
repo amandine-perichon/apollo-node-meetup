@@ -7,3 +7,30 @@
   height: 120px;
   animation: spin 2s linear infinite;
 }
+
+.crew {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid lightgrey;
+  border-radius: 0.25rem;
+  margin: 1rem;
+}
+
+.crew-picture {
+  line-height: 0;
+}
+
+.crew-picture img {
+  width: 5rem;
+}
+
+.crew-name {
+  font-weight: bold;
+  line-height: 1.5rem;
+  font-size: 2rem;
+}
+
+.crew-description {
+  padding-top: 1rem;
+  padding-left: 1rem;
+}

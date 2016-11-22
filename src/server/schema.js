@@ -28,7 +28,7 @@ const Crew = new GraphQLObjectType({
     id: {type: GraphQLString},
     name: {type: GraphQLString},
     url: {type: GraphQLString},
-    spacecrafts: {type: new GraphQLList(Spacecraft)}
+    spacecraft: {type: Spacecraft}
   })
 })
 
@@ -41,7 +41,7 @@ const Mutation = new GraphQLObjectType({
       args: {
         name: {type: new GraphQLNonNull(GraphQLString)},
         url: {type: new GraphQLNonNull(GraphQLString)},
-        spacecrafts: {type: new GraphQLNonNull(new GraphQLList(Spacecraft))}
+        spacecraft: {type: new GraphQLNonNull(Spacecraft)}
       },
       resolve: function(source, args) {
         let newCrew = db.addCrew(args)

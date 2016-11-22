@@ -10,7 +10,6 @@ class App extends Component {
       spacecraft: null,
       name: "",
       url: "",
-      spacecrafts: ["Galactica", "Zephir"]
     }
 
     this.selectSpacecraft = this.selectSpacecraft.bind(this)
@@ -32,8 +31,10 @@ class App extends Component {
 
   render () {
     return (
-      <div>
+      <div className="container">
+        <h3>Add a crew member</h3>
         <AddCrewForm />
+        <h3>Crew member list</h3>
         <div className="crew-list">
           <select value={this.state.value} onChange={evt => this.selectSpacecraft(evt.target.value)}>
             <option value="All">All</option>

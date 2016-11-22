@@ -1,19 +1,21 @@
 import React, { PropTypes } from 'react'
 
- const Crew = ({name, url, spacecrafts}) => (
-  <div>
-    <div>
+ const Crew = ({name, url, spacecraft}) => (
+  <div className="crew">
+    <div className="crew-picture">
       <img src={url} />
     </div>
-    <div>{name}</div>
-    <div>{spacecrafts.join(", ")}</div>
+    <div className="crew-description">
+    <div className="crew-name">{name}</div>
+    <div className="crew-spacecraft">{spacecraft}</div>
+    </div>
   </div>
 )
 
 Crew.propTypes = {
   name: PropTypes.string,
   url: PropTypes.string,
-  spacecrafts: PropTypes.array
+  spacecraft: PropTypes.string
 }
 
 export default Crew

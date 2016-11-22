@@ -6,7 +6,7 @@ const readFleet = () => JSON.parse(fs.readFileSync(path.join(__dirname, 'fleet.j
 const getFleet = spacecraft => {
   const fleet = readFleet()
   return spacecraft ?
-  fleet.filter((crew, i, fleet) => crew.spacecrafts.indexOf(spacecraft) !== -1) : fleet
+  fleet.filter((crew, i, fleet) => crew.spacecraft === spacecraft) : fleet
 }
 
 const addCrew = data => {

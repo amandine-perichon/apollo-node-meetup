@@ -42810,7 +42810,7 @@
 	
 	var _CrewList2 = _interopRequireDefault(_CrewList);
 	
-	var _AddCrewForm = __webpack_require__(264);
+	var _AddCrewForm = __webpack_require__(265);
 	
 	var _AddCrewForm2 = _interopRequireDefault(_AddCrewForm);
 	
@@ -42835,8 +42835,7 @@
 	    _this.state = {
 	      spacecraft: null,
 	      name: "",
-	      url: "",
-	      spacecrafts: ["Galactica", "Zephir"]
+	      url: ""
 	    };
 	
 	    _this.selectSpacecraft = _this.selectSpacecraft.bind(_this);
@@ -42864,8 +42863,18 @@
 	
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { className: 'container' },
+	        _react2.default.createElement(
+	          'h3',
+	          null,
+	          'Add a crew member'
+	        ),
 	        _react2.default.createElement(_AddCrewForm2.default, null),
+	        _react2.default.createElement(
+	          'h3',
+	          null,
+	          'Crew member list'
+	        ),
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'crew-list' },
@@ -42918,7 +42927,7 @@
 	  value: true
 	});
 	
-	var _templateObject = _taggedTemplateLiteral(['\n  query CrewListQuery ($spacecraft: Spacecraft) {\n    fleet (spacecraft: $spacecraft) {\n      id\n      name\n      url\n      spacecrafts\n    }\n  }\n'], ['\n  query CrewListQuery ($spacecraft: Spacecraft) {\n    fleet (spacecraft: $spacecraft) {\n      id\n      name\n      url\n      spacecrafts\n    }\n  }\n']);
+	var _templateObject = _taggedTemplateLiteral(['\n  query CrewListQuery ($spacecraft: Spacecraft) {\n    fleet (spacecraft: $spacecraft) {\n      id\n      name\n      url\n      spacecraft\n    }\n  }\n'], ['\n  query CrewListQuery ($spacecraft: Spacecraft) {\n    fleet (spacecraft: $spacecraft) {\n      id\n      name\n      url\n      spacecraft\n    }\n  }\n']);
 	
 	var _react = __webpack_require__(1);
 	
@@ -42930,7 +42939,11 @@
 	
 	var _graphqlTag2 = _interopRequireDefault(_graphqlTag);
 	
-	var _Crew = __webpack_require__(263);
+	var _util = __webpack_require__(263);
+	
+	var _util2 = _interopRequireDefault(_util);
+	
+	var _Crew = __webpack_require__(264);
 	
 	var _Crew2 = _interopRequireDefault(_Crew);
 	
@@ -42949,7 +42962,7 @@
 	      key: crew.id,
 	      name: crew.name,
 	      url: crew.url,
-	      spacecrafts: crew.spacecrafts
+	      spacecraft: (0, _util2.default)(crew.spacecraft)
 	    });
 	  }) : null;
 	  return loading ? _react2.default.createElement('div', { className: 'loader' }) : _react2.default.createElement(
@@ -45838,6 +45851,29 @@
 
 /***/ },
 /* 263 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var getName = function getName(spacecraft) {
+	  switch (spacecraft) {
+	    case "galactica":
+	      return "Galactica";
+	    case "colonialOne":
+	      return "Colonial One";
+	    case "zephir":
+	      return "Zephir";
+	    default:
+	      return "A spacecraft from BSG";
+	  }
+	};
+	exports.default = getName;
+
+/***/ },
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -45855,24 +45891,28 @@
 	var Crew = function Crew(_ref) {
 	  var name = _ref.name,
 	      url = _ref.url,
-	      spacecrafts = _ref.spacecrafts;
+	      spacecraft = _ref.spacecraft;
 	  return _react2.default.createElement(
 	    "div",
-	    null,
+	    { className: "crew" },
 	    _react2.default.createElement(
 	      "div",
-	      null,
+	      { className: "crew-picture" },
 	      _react2.default.createElement("img", { src: url })
 	    ),
 	    _react2.default.createElement(
 	      "div",
-	      null,
-	      name
-	    ),
-	    _react2.default.createElement(
-	      "div",
-	      null,
-	      spacecrafts.join(", ")
+	      { className: "crew-description" },
+	      _react2.default.createElement(
+	        "div",
+	        { className: "crew-name" },
+	        name
+	      ),
+	      _react2.default.createElement(
+	        "div",
+	        { className: "crew-spacecraft" },
+	        spacecraft
+	      )
 	    )
 	  );
 	};
@@ -45880,13 +45920,13 @@
 	Crew.propTypes = {
 	  name: _react.PropTypes.string,
 	  url: _react.PropTypes.string,
-	  spacecrafts: _react.PropTypes.array
+	  spacecraft: _react.PropTypes.string
 	};
 	
 	exports.default = Crew;
 
 /***/ },
-/* 264 */
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45897,7 +45937,7 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _templateObject = _taggedTemplateLiteral(['\n  mutation addCrew ($name: String!, $url: String!) {\n    createCrew (\n      name: $name,\n      url: $url,\n    \tspacecrafts: [galactica]) {\n      id\n      name\n      url\n      spacecrafts\n    }\n  }\n'], ['\n  mutation addCrew ($name: String!, $url: String!) {\n    createCrew (\n      name: $name,\n      url: $url,\n    \tspacecrafts: [galactica]) {\n      id\n      name\n      url\n      spacecrafts\n    }\n  }\n']);
+	var _templateObject = _taggedTemplateLiteral(['\n  mutation addCrew ($name: String!, $url: String!, $spacecraft: Spacecraft!) {\n    createCrew (\n      name: $name,\n      url: $url,\n    \tspacecraft: $spacecraft) {\n      id\n      name\n      url\n      spacecraft\n    }\n  }\n'], ['\n  mutation addCrew ($name: String!, $url: String!, $spacecraft: Spacecraft!) {\n    createCrew (\n      name: $name,\n      url: $url,\n    \tspacecraft: $spacecraft) {\n      id\n      name\n      url\n      spacecraft\n    }\n  }\n']);
 	
 	var _react = __webpack_require__(1);
 	
@@ -45934,7 +45974,7 @@
 	    _this.state = {
 	      name: "",
 	      url: "",
-	      spacecrafts: ["Galactica", "Zephir"]
+	      spacecraft: "galactica"
 	    };
 	
 	    _this.updateForm = _this.updateForm.bind(_this);
@@ -45948,12 +45988,20 @@
 	      this.setState(_defineProperty({}, field, update));
 	    }
 	  }, {
+	    key: 'selectSpacecraft',
+	    value: function selectSpacecraft(spacecraft) {
+	      this.setState({
+	        spacecraft: spacecraft !== "All" ? spacecraft : null
+	      });
+	    }
+	  }, {
 	    key: 'submitForm',
 	    value: function submitForm() {
-	      this.props.submit(this.state.name, this.state.url);
+	      this.props.submit(this.state.name, this.state.url, this.state.spacecraft);
 	      this.setState({
 	        name: "",
-	        url: ""
+	        url: "",
+	        spacecraft: "galactica"
 	      });
 	    }
 	  }, {
@@ -45967,19 +46015,42 @@
 	        _react2.default.createElement(
 	          'label',
 	          null,
-	          'Name:',
-	          _react2.default.createElement('input', { type: 'text', value: this.state.name, name: 'name', onChange: function onChange(evt) {
-	              return _this2.updateForm(evt.target.name, evt.target.value);
-	            } })
+	          'Name: '
 	        ),
+	        _react2.default.createElement('input', { type: 'text', value: this.state.name, name: 'name', onChange: function onChange(evt) {
+	            return _this2.updateForm(evt.target.name, evt.target.value);
+	          } }),
 	        _react2.default.createElement(
 	          'label',
 	          null,
-	          'URL:',
-	          _react2.default.createElement('input', { type: 'text', value: this.state.url, name: 'url', onChange: function onChange(evt) {
-	              return _this2.updateForm(evt.target.name, evt.target.value);
-	            } })
+	          'URL: '
 	        ),
+	        _react2.default.createElement('input', { type: 'text', value: this.state.url, name: 'url', onChange: function onChange(evt) {
+	            return _this2.updateForm(evt.target.name, evt.target.value);
+	          } }),
+	        _react2.default.createElement('br', null),
+	        _react2.default.createElement(
+	          'select',
+	          { value: this.state.value, onChange: function onChange(evt) {
+	              return _this2.selectSpacecraft(evt.target.value);
+	            } },
+	          _react2.default.createElement(
+	            'option',
+	            { value: 'galactica' },
+	            'Galactica'
+	          ),
+	          _react2.default.createElement(
+	            'option',
+	            { value: 'zephir' },
+	            'Zephir'
+	          ),
+	          _react2.default.createElement(
+	            'option',
+	            { value: 'colonialOne' },
+	            'Colonial One'
+	          )
+	        ),
+	        _react2.default.createElement('br', null),
 	        _react2.default.createElement(
 	          'button',
 	          { onClick: this.submitForm },
@@ -45998,9 +46069,9 @@
 	  props: function props(_ref) {
 	    var mutate = _ref.mutate;
 	    return {
-	      submit: function submit(name, url) {
+	      submit: function submit(name, url, spacecraft) {
 	        return mutate({
-	          variables: { name: name, url: url },
+	          variables: { name: name, url: url, spacecraft: spacecraft },
 	          updateQueries: {
 	            CrewListQuery: function CrewListQuery(prev, _ref2) {
 	              var mutationResult = _ref2.mutationResult;

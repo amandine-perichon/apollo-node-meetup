@@ -1,6 +1,7 @@
 import React from 'react'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
+import getName from '../../util'
 import Crew from './Crew'
 
 const CrewList = ({data: {fleet, loading, refresh}}) => {
@@ -8,7 +9,7 @@ const CrewList = ({data: {fleet, loading, refresh}}) => {
                                               key={crew.id}
                                               name={crew.name}
                                               url={crew.url}
-                                              spacecrafts={crew.spacecrafts}
+                                              spacecraft={getName(crew.spacecraft)}
                                               />) : null
   return loading? <div className="loader"></div> : <div>{crewList}</div>
 }
@@ -19,7 +20,7 @@ const CrewListQuery = gql`
       id
       name
       url
-      spacecrafts
+      spacecraft
     }
   }
 `
